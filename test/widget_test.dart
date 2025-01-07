@@ -5,26 +5,27 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:culinary_map_app/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:culinary_map_app/main.dart';
+// import 'package:culinary_map_app/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('HomeScreen displays a list of restaurants', (WidgetTester tester) async {
+    // Build HomeScreen and trigger a frame.
+    await tester.pumpWidget(MaterialApp(home: HomeScreen()));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Verify that a restaurant name appears in the list.
+    expect(find.text('Restoran A'), findsOneWidget);
+    expect(find.text('Restoran B'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Tap on a restaurant item and verify navigation to DetailScreen.
+    await tester.tap(find.text('Restoran A'));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // Verify that DetailScreen is displayed with restaurant details.
+    expect(find.text('Masakan Italia terbaik di kota.'), findsOneWidget);
   });
 }
+
