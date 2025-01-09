@@ -8,13 +8,15 @@ import 'detail_screen.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String name = "User"; // Default name
-  String role = "Guest"; // Default role
+  String name = "User"; 
+  String role = "Guest"; 
 
   @override
   void initState() {
@@ -57,16 +59,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors
-                        .grey, // Menambahkan warna latar belakang abu-abu untuk ikon
+                        .grey, 
                     child: const Icon(
-                      Icons.person, // Ikon pengguna
-                      size: 30, // Ukuran ikon
-                      color: Colors.white, // Warna ikon
+                      Icons.person, 
+                      size: 30, 
+                      color: Colors.white, 
                     ),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    name, // Name updated dynamically
+                    name, 
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
@@ -75,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    role, // Role updated dynamically
+                    role, 
                     style: const TextStyle(
                       color: Colors.white70,
                       fontSize: 14,
@@ -103,8 +105,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ).then((value) {
                   if (value != null) {
                     setState(() {
-                      name = value['name']; // Update name
-                      role = value['role']; // Update role
+                      name = value['name']; 
+                      role = value['role']; 
                     });
                   }
                 });

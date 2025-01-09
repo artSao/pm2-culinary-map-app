@@ -40,7 +40,7 @@ final List<Restaurant> dummyRestaurants = [
       category: "Cafe",
       address:
           "Jl. Arif Rahman Hakim No.49, Jagabaya III, Kec. Sukabumi, Kota Bandar Lampung, Lampung 35122",
-      operatingHours: "10:00 - 23:00",
+      operatingHours: "10:00 - 23:00 WIB",
       latitude: -5.394512,
       longitude: 105.281507,
       menu: [
@@ -96,7 +96,7 @@ final List<Restaurant> dummyRestaurants = [
       description: "Indonesian Restaurant.",
       category: "Indonesia",
       address: "Jl. Teuku Umar, Kedaton, Kec. Kedaton, Kota Bandar Lampung, Lampung",
-      operatingHours: "10:00 - 23:00",
+      operatingHours: "10:00 - 23:00 WIB",
       latitude: -5.384901, 
       longitude: 105.261104,
       menu: [
@@ -157,7 +157,7 @@ final List<Restaurant> dummyRestaurants = [
       description: "Indonesian Restaurant.",
       category: "Indonesia",
       address: "Jl. Kamboja No.1, Kb. Jeruk, Kec. Tanjungkarang Timur, Kota Bandar Lampung, Lampung 35125",
-      operatingHours: "11:00 - 22:00",
+      operatingHours: "11:00 - 22:00 WIB",
       latitude: -5.412198,  
       longitude: 105.263829,
       menu: [
@@ -218,7 +218,7 @@ final List<Restaurant> dummyRestaurants = [
       description: "LIVE AND FRESH SEAFOOD.",
       category: "Seafood",
       address: "KOMPLEK NAGA INTAN, Jl. Ikan Sepat, Pesawahan, Kec. Telukbetung Selatan, Kota Bandar Lampung, Lampung",
-      operatingHours: "10:30 - 21:00",
+      operatingHours: "10:30 - 21:00 WIB",
       latitude: -5.451243,  
       longitude: 105.265125,
       menu: [
@@ -279,7 +279,7 @@ final List<Restaurant> dummyRestaurants = [
       description: "Rasanya nge-raja, Harganya nge-rakyat.",
       category: "Masakan Nusantara",
       address: "JL Abdul Rahman Hakim, 1-A, Bandar Lampung, 35141, Jagabaya III, Kec. Way Halim, Kota Bandar Lampung, Lampung 35122",
-      operatingHours: "10:00 - 22:00",
+      operatingHours: "10:00 - 22:00 WIB" ,
       latitude: -5.395142,   
       longitude: 105.281666,
       menu: [

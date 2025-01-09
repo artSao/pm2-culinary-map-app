@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CustomDrawer extends StatelessWidget {
   final Function(int) onItemTap;
 
-  const CustomDrawer({Key? key, required this.onItemTap}) : super(key: key);
+  const CustomDrawer({super.key, required this.onItemTap});
 
   @override
   Widget build(BuildContext context) {

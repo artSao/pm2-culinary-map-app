@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
@@ -95,7 +97,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
             TextField(
               controller: _roleController,
-              decoration: const InputDecoration(labelText: "Jurusan"),
+              decoration: const InputDecoration(labelText: "Status"),
             ),
             const SizedBox(height: 20),
             isLoading

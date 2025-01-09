@@ -16,7 +16,7 @@ void main() async {
 }
 
 class CulinaryMapApp extends StatelessWidget {
-  const CulinaryMapApp({Key? key}) : super(key: key);
+  const CulinaryMapApp({super.key});
 
   @override
   Widget build(BuildContext context) {
