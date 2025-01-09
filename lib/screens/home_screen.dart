@@ -1,56 +1,43 @@
+import 'package:culinary_map_app/screens/edit_profile_screen.dart';
 import 'package:culinary_map_app/screens/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/restaurant.dart';
 import 'detail_screen.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
-  final List<Restaurant> dummyRestaurants = [
-    Restaurant(
-      name: "Restoran A",
-      description: "Masakan Italia terbaik di kota.",
-      category: "Italia",
-      address: "Jl. Sudirman No. 1",
-      operatingHours: "08:00 - 20:00",
-      latitude: -6.200000,
-      longitude: 106.816666,
-      menu: [
-        FoodItem(
-          name: "Spaghetti Carbonara",
-          description: "Spaghetti dengan saus keju dan bacon.",
-          price: 75000,
-        ),
-        FoodItem(
-          name: "Pizza Margherita",
-          description: "Pizza dengan saus tomat dan keju mozzarella.",
-          price: 95000,
-        ),
-      ],
-    ),
-    Restaurant(
-      name: "Restoran B",
-      description: "Spesialis masakan Jepang.",
-      category: "Jepang",
-      address: "Jl. Gatot Subroto No. 5",
-      operatingHours: "10:00 - 22:00",
-      latitude: -6.210000,
-      longitude: 106.826666,
-      menu: [
-        FoodItem(
-          name: "Sushi Salmon",
-          description: "Sushi isi salmon segar.",
-          price: 85000,
-        ),
-        FoodItem(
-          name: "Ramen Miso",
-          description: "Mie ramen dengan kuah miso khas Jepang.",
-          price: 65000,
-        ),
-      ],
-    ),
-  ];
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-  HomeScreen({Key? key}) : super(key: key);
+class _HomeScreenState extends State<HomeScreen> {
+  String name = "User"; // Default name
+  String role = "Guest"; // Default role
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserData(); // Load user data when screen is initialized
+  }
+
+  // Function to load user data from Firestore
+  void _loadUserData() async {
+    User? user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(user.uid)
+          .get();
+      if (userData.exists) {
+        setState(() {
+          name = userData['name'] ?? "User";
+          role = userData['role'] ?? "Guest";
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +51,37 @@ class HomeScreen extends StatelessWidget {
           children: [
             DrawerHeader(
               decoration: const BoxDecoration(color: Colors.blue),
-              child: const Center(
-                child: Text(
-                  "Culinary Map",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors
+                        .grey, // Menambahkan warna latar belakang abu-abu untuk ikon
+                    child: const Icon(
+                      Icons.person, // Ikon pengguna
+                      size: 30, // Ukuran ikon
+                      color: Colors.white, // Warna ikon
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    name, // Name updated dynamically
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    role, // Role updated dynamically
+                    style: const TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -78,41 +91,41 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pop(context);
               },
             ),
-            // ListTile(
-            //   leading: const Icon(Icons.logout),
-            //   title: const Text("Logout"),
-            //   onTap: () {
-            //     Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
-            //   },
-            // ),
-            // ListTile(
-            //   leading: const Icon(Icons.logout),
-            //   title: const Text("Logout"),
-            //   onTap: () async {
-            //     await FirebaseAuth.instance.signOut();
-            //     Navigator.pushAndRemoveUntil(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const LoginScreen()),
-            //       (route) => false, // Menghapus semua layar sebelumnya
-            //     );
-            //   },
-            // ),
             ListTile(
-              leading: const Icon(Icons.logout),
-              title: const Text("Logout"),
+              leading: const Icon(Icons.edit),
+              title: const Text("Edit Profile"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EditProfileScreen(),
+                  ),
+                ).then((value) {
+                  if (value != null) {
+                    setState(() {
+                      name = value['name']; // Update name
+                      role = value['role']; // Update role
+                    });
+                  }
+                });
+              },
+            ),
+            Divider(), // Separator before logout
+            ListTile(
+              leading: const Icon(Icons.logout, color: Colors.red),
+              title: const Text("Logout", style: TextStyle(color: Colors.red)),
               onTap: () async {
                 try {
-                  await FirebaseAuth.instance
-                      .signOut(); // Keluar dari akun Firebase
+                  await FirebaseAuth.instance.signOut();
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const LoginScreen()),
-                    (route) => false, // Hapus semua layar sebelumnya
+                    (route) => false,
                   );
                 } catch (e) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Logout failed: ${e.toString()}')),
+                    SnackBar(content: Text('Logout gagal: ${e.toString()}')),
                   );
                 }
               },

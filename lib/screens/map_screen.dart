@@ -1,51 +1,45 @@
 import 'package:flutter/material.dart';
-// import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 import '../models/restaurant.dart';
 
 class MapScreen extends StatelessWidget {
   final Restaurant restaurant;
 
-  const MapScreen({Key? key, required this.restaurant}) : super(key: key);
+  const MapScreen({super.key, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
-    // Periksa apakah latitude dan longitude valid
-    if (restaurant.latitude == 0 || restaurant.longitude == 0) {
-      return Scaffold(
-        appBar: AppBar(
-          title: Text("Lokasi ${restaurant.name}"),
-        ),
-        body: Center(
-          child: Text(
-            "Lokasi tidak tersedia",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-    }
-
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text("Lokasi ${restaurant.name}"),
-      // ),
-      // body: GoogleMap(
-      //   initialCameraPosition: CameraPosition(
-      //     target: LatLng(restaurant.latitude, restaurant.longitude),
-      //     zoom: 15,
-      //   ),
-      //   markers: {
-      //     Marker(
-      //       markerId: MarkerId(
-      //         '${restaurant.name}-${restaurant.latitude}-${restaurant.longitude}',
-      //       ),
-      //       position: LatLng(restaurant.latitude, restaurant.longitude),
-      //       infoWindow: InfoWindow(
-      //         title: restaurant.name,
-      //         snippet: restaurant.address,
-      //       ),
-      //     ),
-      //   },
-      // ),
+      appBar: AppBar(
+        title: Text('Lokasi ${restaurant.name}'),
+      ),
+      body: FlutterMap(
+        options: MapOptions(
+          initialCenter: LatLng(restaurant.latitude, restaurant.longitude),
+          initialZoom: 16.0, // Atur tingkat zoom
+        ),
+        children: [
+          TileLayer(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+          ),
+          MarkerLayer(
+            markers: [
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: LatLng(restaurant.latitude, restaurant.longitude),
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 40.0,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

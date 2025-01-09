@@ -1,3 +1,4 @@
+import 'package:culinary_map_app/screens/home_screen.dart';
 import 'package:culinary_map_app/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +26,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      Navigator.pushReplacementNamed(context, '/home');
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) =>  HomeScreen()), // Sesuaikan dengan halaman utama Anda
+        (Route<dynamic> route) => false, // Menghapus semua halaman sebelumnya
+      );
     } on FirebaseAuthException catch (e) {
       String errorMessage;
       if (e.code == 'email-already-in-use') {
@@ -78,9 +83,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
               TextButton(
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(builder: (context) => const LoginScreen(), )
+                    MaterialPageRoute(builder: (context) => const LoginScreen()),
+                    (Route<dynamic> route) => false, // Menghapus semua halaman sebelumnya
                   );
                 },
                 child: const Text("Already have an account? Sign in."),

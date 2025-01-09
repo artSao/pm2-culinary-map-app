@@ -1,10 +1,11 @@
 import 'package:culinary_map_app/screens/detail_screen.dart';
-import 'package:flutter/material.dart';
+import 'package:culinary_map_app/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 import 'screens/auth_wrapper.dart';
-import 'screens/login_screen.dart';
 import 'screens/home_screen.dart';
+import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

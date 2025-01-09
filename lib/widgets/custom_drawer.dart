@@ -1,3 +1,4 @@
+import 'package:culinary_map_app/screens/edit_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -34,6 +35,16 @@ class CustomDrawer extends StatelessWidget {
             leading: Icon(Icons.dashboard, color: Colors.red),
             title: Text('Dashboard'),
             onTap: () => onItemTap(0),
+          ),
+          ListTile(
+            leading: Icon(Icons.edit, color: Colors.red),
+            title: Text('Edit Profile'),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditProfileScreen()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(Icons.logout, color: Colors.red),

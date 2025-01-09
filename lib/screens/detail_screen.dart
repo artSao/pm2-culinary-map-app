@@ -32,12 +32,25 @@ class _DetailScreenState extends State<DetailScreen> {
             Text("Alamat: ${widget.restaurant.address}"),
             Text("Jam Operasional: ${widget.restaurant.operatingHours}"),
             const SizedBox(height: 16),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) =>
+            //             MapScreen(restaurant: widget.restaurant),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text("Lihat Lokasi di Peta"),
+            // ),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MapScreen(restaurant: widget.restaurant),
+                    builder: (context) =>
+                        MapScreen(restaurant: widget.restaurant),
                   ),
                 );
               },
