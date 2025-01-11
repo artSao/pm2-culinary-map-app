@@ -27,6 +27,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Berhasil sign-up! Selamat datang!')),
+      );
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(builder: (context) => HomeScreen()),
